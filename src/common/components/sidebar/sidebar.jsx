@@ -1,38 +1,37 @@
 import { Link } from "react-router";
 import { UserSection } from "./user-section";
+import { SidebarCard } from "./sidebar-card";
+import { LogOut } from "lucide-react";
+import { useUser } from "../../providers/user-provider/user-provider";
+import { useAuthStore } from "../../../features/pages/auth/store/auth-store";
 
-export default function Sidebar() {
-  return (
-    <aside className="lg:w-80 lg:min-h-screen bg-blue-400/10 backdrop-blur-xl border-white/10 border-b lg:border-r lg:border-b-0">
-      <div className="flex h-full flex-col px-5 py-6 lg:px-6">
+export function Sidebar({ navigation }) {
+    
+    const { logout } = useAuthStore()
 
-        <div className="mt-8">
-          <UserSection />
-        </div>
+    return (
+        <aside className="h-90 xl:w-80 xl:min-h-screen bg-emerald-800/40 backdrop-blur-xl border-white/20 border-b lg:border-r lg:border-b-0">
 
-        <div className="mt-8">
-          <h2 className="px-3 text-xs font-medium uppercase text-slate-500">
-            Navigation
-          </h2>
+            <div className="flex h-full flex-col justify-between items-center py-12 px-15 ">
 
-          <nav className="mt-4 space-y-2 gap-4 flex lg:flex-col">
-            <Link to="/">Home</Link>
+                <div className="mt-8">
+                    <UserSection />
+                </div>
 
-            <Link to="about-me">About Me</Link>
+                <ul className="flex gap-2 xl:flex-col md:gap-4 lg:gap-6 xl:gap-8">
+                    {
+                        navigation.map(({ id, title, path, Icon }) => (
+                            <SidebarCard key={id} title={title} path={path} Icon={Icon} />
+                        ))
+                    }
+                </ul>
 
-          </nav>
+                <button className="flex gap-3 py-4 px-2 items-center cursor-pointer" onClick={logout}>
+                    <LogOut className="text-red-700" size={25}/>
+                    <span className="text-red-700 text-xl font-extrabold">Logout</span>
+                </button>
 
-          <h2 className="mt-4 mb-2 px-3 text-xs font-medium uppercase text-slate-500">
-            Todo App
-          </h2>
-
-          <nav className="space-y-2 gap-4 flex lg:flex-col">
-            <Link to="todo">Todo App</Link>
-            <Link to="description">- Todo List</Link>
-          </nav>
-
-        </div>
-      </div>
-    </aside>
-  );
+            </div>
+        </aside>
+    );
 }

@@ -10,7 +10,7 @@ export function Sidebar({ navigation }) {
     const { logout } = useAuthStore()
 
     return (
-        <aside className="h-90 xl:w-80 xl:min-h-screen bg-emerald-800/40 backdrop-blur-xl border-white/20 border-b lg:border-r lg:border-b-0">
+        <aside className="min-h-90 xl:w-80 xl:min-h-screen bg-emerald-800/40 backdrop-blur-xl border-white/20 border-b lg:border-r lg:border-b-0">
 
             <div className="flex h-full flex-col justify-between items-center py-12 px-15 ">
 
@@ -18,7 +18,7 @@ export function Sidebar({ navigation }) {
                     <UserSection />
                 </div>
 
-                <ul className="flex gap-2 xl:flex-col md:gap-4 lg:gap-6 xl:gap-8">
+                <ul className="flex gap-2 xl:flex-col md:gap-4 lg:gap-6 xl:gap-8 flex-wrap items-center justify-center">
                     {
                         navigation.map(({ id, title, path, Icon }) => (
                             <SidebarCard key={id} title={title} path={path} Icon={Icon} />
